@@ -1,7 +1,5 @@
 # gmail-xoauth
 
-OAuth for Gmail
-
 This module generates xoauth string from oauth 1.0 token for Gmail IMAP login. The logic is taken from http://code.google.com/p/google-mail-xoauth-tools/source/browse/trunk/python/xoauth.py.
 
 # Installation
