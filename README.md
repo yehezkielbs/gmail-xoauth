@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/yehezkielbs/gmail-xoauth.png)](http://travis-ci.org/yehezkielbs/gmail-xoauth)
 # gmail-xoauth
 
 This module generates xoauth string from oauth 1.0 token for Gmail IMAP login. The logic is taken from http://code.google.com/p/google-mail-xoauth-tools/source/browse/trunk/python/xoauth.py.
