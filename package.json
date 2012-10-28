@@ -10,7 +10,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yehezkielbs/gmail-xoauth.git"
+    "url": "https://github.com/cioc/gmail-xoauth.git" 
   },
-  "author": "Yehezkiel Syamsuhadi <yehezkielbs@gmail.com>"
+  "dependencies": {
+    "underscore": ""
+  },
+  "author": "Yehezkiel Syamsuhadi <yehezkielbs@gmail.com> and modified by charles cary <charles@greedytrees.com>"
 }
