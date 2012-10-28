@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var _ = require('underscore');
 
 var XOauth = function (consumer_key, consumer_secret) {
   this.consumer = {
@@ -18,7 +19,7 @@ XOauth.prototype.escapeAndJoin = function (elems) {
 XOauth.prototype.formatUrlParams = function (params) {
   var param_fragments = [];
 
-  Object.keys(params).sortBy().forEach(function (key) {
+  _.each(_.sortBy(_.keys(params), function(key){return key}), function(key){
     param_fragments.push(key + '=' + encodeURIComponent(params[key]));
   });
 
@@ -82,16 +83,13 @@ XOauth.prototype.generateXOauthString = function (access_token, user, proto, xoa
     oauth_params['oauth_token'] = access_token.key;
   }
 
-  signed_params = Object.merge(oauth_params, url_params);
+  signed_params = _.extend(oauth_params, url_params);
   request_url_base = 'https://mail.google.com/mail/b/' + user + '/' + proto + '/';
   base_string = this.generateSignatureBaseString(method, request_url_base, signed_params);
 
-  //console.log("signature base string:\n" + base_string + "\n");
-
   signature = this.generateOauthSignature(base_string, access_token.secret);
   oauth_params['oauth_signature'] = signature
-
-  Object.keys(oauth_params).sortBy().forEach(function (k) {
+  _.each(_.sortBy(_.keys(oauth_params), function(k){return k;}),function(k){
     var v = oauth_params[k];
     formatted_params.push(k + '="' + encodeURIComponent(v) + '"');
   });
@@ -106,8 +104,6 @@ XOauth.prototype.generateXOauthString = function (access_token, user, proto, xoa
 
   preencoded = [method, request_url, param_list].join(' ');
 
-  //console.log("xoauth string (before base64-encoding):\n" + preencoded + "\n");
-
   return preencoded;
 };
 
@@ -120,8 +116,6 @@ XOauth.prototype.generateIMAPXOauthString = function (user, oauth_token, oauth_t
 
   xoauth_string = this.generateXOauthString(access_token, user, 'imap', xoauth_requestor_id, nonce, timestamp);
   encoded_xoauth_string = (new Buffer(xoauth_string)).toString('base64');
-
-  //console.log("XOAUTH string (base64-encoded):\n" + encoded_xoauth_string + "\n");
 
   return encoded_xoauth_string;
 };
